@@ -1,9 +1,8 @@
-
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Smile, Frown, Meh, TrendingUp, TrendingDown, MinusHorizontal, ListCheck, Image } from "lucide-react";
+import { Smile, Frown, Meh, TrendingUp, TrendingDown, Minus, ListCheck, Image } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // Improved sentiment analysis function with better word lists and neutral detection
@@ -194,7 +193,7 @@ const SentimentAnalyzer = () => {
       case 'NEGATIVE':
         return <TrendingDown className="text-red-500" />;
       case 'NEUTRAL':
-        return <MinusHorizontal className="text-amber-500" />;
+        return <Minus className="text-amber-500" />;
       default:
         return null;
     }
