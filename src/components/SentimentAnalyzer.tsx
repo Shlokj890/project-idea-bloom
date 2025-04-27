@@ -1,34 +1,78 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { pipeline } from "@huggingface/transformers";
-import { TrendingUp, TrendingDown, Smile, Frown, Meh } from "lucide-react";
+import { Smile, Frown, Meh, TrendingUp, TrendingDown } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+// Sample sentiment analysis data to simulate results
+const mockSentimentAnalysis = (text: string) => {
+  // Simple sentiment analysis based on positive and negative word counts
+  const positiveWords = ['good', 'great', 'excellent', 'amazing', 'awesome', 'wonderful', 'love', 'like', 'happy', 'best'];
+  const negativeWords = ['bad', 'terrible', 'awful', 'horrible', 'hate', 'dislike', 'poor', 'worst', 'disappointed', 'sad'];
+  
+  const words = text.toLowerCase().split(/\s+/);
+  
+  let positiveCount = 0;
+  let negativeCount = 0;
+  
+  words.forEach(word => {
+    if (positiveWords.includes(word)) positiveCount++;
+    if (negativeWords.includes(word)) negativeCount++;
+  });
+  
+  const score = (positiveCount - negativeCount) / (positiveCount + negativeCount + 1);
+  
+  if (score > 0) {
+    return {
+      label: 'POSITIVE',
+      score: 0.5 + score * 0.5 // Scale between 0.5 and 1.0
+    };
+  } else {
+    return {
+      label: 'NEGATIVE',
+      score: 0.5 - score * 0.5 // Scale between 0 and 0.5
+    };
+  }
+};
 
 const SentimentAnalyzer = () => {
   const [text, setText] = useState('');
-  const [sentiment, setSentiment] = useState<any>(null);
+  const [sentiment, setSentiment] = useState<{label: string, score: number} | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [classifier, setClassifier] = useState<any>(null);
-
-  useEffect(() => {
-    const loadModel = async () => {
-      const sentimentClassifier = await pipeline('sentiment-analysis');
-      setClassifier(sentimentClassifier);
-    };
-    loadModel();
-  }, []);
+  const { toast } = useToast();
 
   const analyzeSentiment = async () => {
-    if (!text.trim() || !classifier) return;
+    if (!text.trim()) {
+      toast({
+        title: "Empty Text",
+        description: "Please enter some text to analyze.",
+        variant: "destructive"
+      });
+      return;
+    }
     
     setIsAnalyzing(true);
     try {
-      const result = await classifier(text);
-      setSentiment(result[0]);
+      // Simulate API call with a delay
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      // Use the mock sentiment analysis function
+      const result = mockSentimentAnalysis(text);
+      setSentiment(result);
+      
+      toast({
+        title: "Analysis Complete",
+        description: `Sentiment detected: ${result.label}`,
+      });
     } catch (error) {
       console.error('Error analyzing sentiment:', error);
+      toast({
+        title: "Analysis Failed",
+        description: "There was an error analyzing the sentiment. Please try again.",
+        variant: "destructive"
+      });
     }
     setIsAnalyzing(false);
   };
