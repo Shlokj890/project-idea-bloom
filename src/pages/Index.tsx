@@ -1,7 +1,7 @@
 
 import SentimentAnalyzer from '@/components/SentimentAnalyzer';
 import { Button } from '@/components/ui/button';
-import { FileText, Download } from 'lucide-react';
+import { Download } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
