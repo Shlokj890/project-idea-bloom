@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ChartBar, BarChart3, Info } from "lucide-react";
+import { ChartBar, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const Header = () => {
@@ -30,13 +30,9 @@ export const Header = () => {
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center gap-2">
           <ChartBar className="h-6 w-6 text-primary" />
-          <span className="font-bold text-xl">SentimentScan</span>
+          <span className="font-bold text-xl">BSA</span>
         </div>
         <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" className="hidden md:flex items-center gap-1">
-            <BarChart3 className="h-4 w-4" />
-            <span>Dashboard</span>
-          </Button>
           <Button variant="ghost" size="sm" className="hidden md:flex items-center gap-1">
             <Info className="h-4 w-4" />
             <span>About</span>
