@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChartBar, BarChart3, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -8,7 +8,7 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Add scroll listener effect
-  useState(() => {
+  useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       setIsScrolled(scrollPosition > 50);
