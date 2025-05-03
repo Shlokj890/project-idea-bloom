@@ -38,7 +38,7 @@ const Index = () => {
               className="animate-pulse hover:animate-none"
               onClick={scrollToAnalyzer}
             >
-              Try It Now <ArrowDown className="ml-2 h-4 w-4" />
+              Try Now <ArrowDown className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </div>
